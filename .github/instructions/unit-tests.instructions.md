@@ -13,6 +13,11 @@ Unit tests run with **Vitest** (`npm run test:unit`). They cover the two highest
 > [!IMPORTANT]
 > Keep tests independent of the Astro runtime. Helpers accept an **injectable `db`** argument; tests pass an in-memory database, pages pass the real client. Never start an Astro server to unit test data logic.
 
+## Comments
+
+- Comment the behaviour or fixture rationale a test is protecting, not the assertion mechanics.
+- Keep comments current when the implementation or expected behaviour changes.
+
 ## File Structure
 
 - Co-locate tests next to the code: `transforms.test.ts` beside `transforms.ts`, `games.test.ts` beside `games.ts`.
