@@ -20,6 +20,13 @@ Refer to technology-specific instruction files:
 
 ## Core Principles
 
+### Comments and documentation
+
+- Comment the intent, accessibility rationale, or design decision — not the mechanics already expressed by the markup.
+- Avoid comments that merely paraphrase an element, class list, or expression.
+- Keep comments current when the associated component changes.
+- Every reusable `.astro` component must document its `Props` interface with TSDoc, including the purpose of each non-obvious prop.
+
 ### Testability
 
 - Every interactive element MUST include a `data-testid` attribute

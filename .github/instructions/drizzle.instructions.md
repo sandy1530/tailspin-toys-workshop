@@ -7,6 +7,13 @@ applyTo: 'db/**/*.ts,src/lib/*.ts'
 
 The app's data lives in a local SQLite database accessed through **Drizzle ORM** over Node.js's built-in `node:sqlite` driver. It is consumed at **build time** from Astro page frontmatter — there is no runtime API server. Schema changes are managed with **drizzle-kit** migrations.
 
+## Comments and API documentation
+
+- Comments should explain intent, constraints, or a non-obvious decision — never repeat what the code already says.
+- Keep comments current with the implementation. Update or remove a comment when the related code changes; stale documentation is a bug.
+- Every exported function in `db/` and `src/lib/` must have a TSDoc/JSDoc comment describing its purpose, each parameter, and its return value. Document the injectable `db` parameter explicitly on data-access helpers.
+- Internal helpers need comments only when their intent or reasoning cannot be understood from the code and types.
+
 ## Layout
 
 - `db/schema.ts` — Drizzle table definitions (`publishers`, `categories`, `games`) and inferred row types. The single source of truth for the schema.
@@ -48,6 +55,19 @@ import { games } from '../../db/schema';
 export async function getAllGameIds(db: Database): Promise<number[]> {
   const rows = await db.select({ id: games.id }).from(games).orderBy(asc(games.title));
   return rows.map((r) => r.id);
+}
+```
+
+- Add a TSDoc comment above exported helpers, for example:
+
+```ts
+/**
+ * Returns all game IDs in the stable title order used by static builds.
+ * @param db Injectable Drizzle database client.
+ * @returns Game IDs ordered alphabetically by title.
+ */
+export async function getAllGameIds(db: Database): Promise<number[]> {
+  // ...
 }
 ```
 
